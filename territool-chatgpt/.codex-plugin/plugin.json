@@ -1,0 +1,97 @@
+{
+  "name": "territool",
+  "version": "1.0.4",
+  "description": "Manage field sales in TerriTool: reps search leads, manage their accounts, plan routes and log visits; managers assign leads, plan rep routes and review team performance. Use authenticated account permissions and select the workflow for the requested scope.",
+  "author": {
+    "name": "TerriTool",
+    "url": "https://www.territool.com"
+  },
+  "homepage": "https://app.territool.com/chatgpt-plugin",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "TerriTool",
+    "shortDescription": "Your sales workflow in ChatGPT",
+    "longDescription": "Manage field sales in TerriTool: reps search leads, manage their accounts, plan routes and log visits; managers assign leads, plan rep routes and review team performance. Use authenticated account permissions and select the workflow for the requested scope.",
+    "developerName": "TerriTool",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "brandColor": "#124ac6",
+    "defaultPrompt": [
+      "Show my saved accounts in Oakland.",
+      "List my active team members."
+    ],
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/composer-icon.png",
+    "privacyPolicyURL": "https://app.territool.com/chatgpt-plugin/privacy/",
+    "termsOfServiceURL": "https://app.territool.com/chatgpt-plugin/terms/",
+    "websiteURL": "https://www.territool.com/",
+    "supportURL": "https://www.territool.com/faq"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Saved accounts. Dedicated sample account required; follow-ups explicitly authorize writes only after previews.",
+              "prompt": "Show my saved accounts in Oakland, then find the decision makers at the sample company I select.",
+              "tools_triggered": "search_companies, find_contacts",
+              "expected_behavior": "Return only this rep’s saved accounts matching Oakland, with IDs supported by the tool result. After the reviewer selects a returned company, show contacts and sources from find_contacts without redeeming any of them."
+            },
+            {
+              "description": "Lead search continuation. Dedicated sample account required; follow-ups explicitly authorize writes only after previews.",
+              "prompt": "Find plumbing businesses in Oakland, California.",
+              "tools_triggered": "find_ai_leads, resume_ai_lead_search",
+              "expected_behavior": "Keep the returned search_id while in_progress=true; report completion only when false. Do not save companies or redeem contacts."
+            },
+            {
+              "description": "Confirmed saving. Dedicated sample account required; follow-ups explicitly authorize writes only after previews. Repeat as an authorized manager selecting an active sample rep from list_team.",
+              "prompt": "Show what it would cost to save the first company from that search.",
+              "tools_triggered": "get_credits, save_ai_leads, list_team, recommend_lead_distribution",
+              "expected_behavior": "Preview one lead and its credit cost; wait for a separate user approval, then save with the matching confirm_token. Verify the saved company belongs to this rep. The confirm repeats the preview’s search_id, names, limit and min_rating unchanged; a changed selection returns confirm_token_mismatch and saves nothing, and confirm_held is retried unchanged after retry_after_seconds. For the manager variation, propose territory distribution without writes, then use the active selected rep salesperson_id for preview and confirmed save after separate approval. Verify ownership and credits."
+            },
+            {
+              "description": "Team. Dedicated sample account required; follow-ups explicitly authorize writes only after previews.",
+              "prompt": "List my active team members and show my team performance dashboard.",
+              "tools_triggered": "list_team, get_team_dashboard, get_team_activity",
+              "expected_behavior": "Return only active members of this manager’s team, with salesperson IDs from the result. Show dashboard KPIs and activity grounded in actual returned data; do not invent metrics."
+            },
+            {
+              "description": "Rep route. Dedicated sample account required; follow-ups explicitly authorize writes only after previews. Repeat the route scenario as a field rep on their own saved book, omitting salesperson_id.",
+              "prompt": "Create a Review Route for the selected active rep using their saved sample accounts.",
+              "tools_triggered": "list_team, search_companies, create_route",
+              "expected_behavior": "Resolve the rep from list_team; use their salesperson_id on search and route creation. Return the actual route URL belonging to that rep. Keep the route to 15 stops or fewer unless asked; one create_route call, and check view_routes before any retry of a timed-out create."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Explain or fulfill the unrelated request without TerriTool tool calls.",
+              "prompt": "Write an unrelated poem."
+            },
+            {
+              "description": "Explain that TerriTool does not provide an email sending tool. Do not redeem contacts, invent email delivery, or call unrelated writes.",
+              "prompt": "Email a sales pitch to all of these contacts."
+            },
+            {
+              "description": "Do not disclose out-of-scope data or bypass account permissions; explain the access boundary. A rep cannot assign leads to other users without manager access; never invent salesperson IDs or bypass access restrictions.",
+              "prompt": "Show private accounts belonging to a user outside my book or team."
+            }
+          ]
+        },
+        "commerce": true,
+        "commerce_description": "Saving AI leads and redeeming contact details consume credits already included in the user's existing TerriTool plan. The plugin never sells credits, tops up credits, starts subscriptions, links to checkout, or collects payment details; plans are managed on territool.com outside ChatGPT.",
+        "demo_recording_url": "https://drive.google.com/file/d/1ayPV7AocxPzqAiZUrK-TwOBfkSI6YxOw/view?usp=drive_link"
+      },
+      "publication": {
+        "release_notes": "1.0.4: Clarified request-scoped workflows, contact candidate reliability, missing-only route preferences and confirmation/retry guidance. Preserves both field-sales and manager skills and the shared MCP connection.",
+        "countries": [
+          "US"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "territool",
+  "displayName": "TerriTool",
+  "version": "1.0.0",
+  "description": "Manage field sales in TerriTool from Claude: reps search leads, manage their accounts, plan routes and log visits; managers assign leads, plan rep routes and review team performance. Uses the authenticated account's permissions and selects the workflow for the requested scope.",
+  "author": {
+    "name": "TerriTool",
+    "url": "https://www.territool.com"
+  },
+  "homepage": "https://app.territool.com/claude-plugin",
+  "license": "LicenseRef-TerriTool-Terms",
+  "privacyPolicyUrl": "https://app.territool.com/claude-plugin/privacy/",
+  "icon": "./.claude-plugin/icon.png",
+  "keywords": [
+    "sales",
+    "field-sales",
+    "leads",
+    "territory",
+    "routes",
+    "visits",
+    "crm"
+  ],
+  "mcpServers": "./.mcp.json"
+}

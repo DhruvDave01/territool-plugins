@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "territool": {
+      "type": "http",
+      "url": "https://app.territool.com/ai/mcp"
+    }
+  }
+}

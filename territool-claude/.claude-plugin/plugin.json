@@ -1,7 +1,7 @@
 {
   "name": "territool",
   "displayName": "TerriTool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Manage field sales in TerriTool from Claude: reps search leads, manage their accounts, plan routes and log visits; managers assign leads, plan rep routes and review team performance. Uses the authenticated account's permissions and selects the workflow for the requested scope.",
   "author": {
     "name": "TerriTool",

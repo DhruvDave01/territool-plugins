@@ -1,3 +1,8 @@
+# Team dashboard template
+
+Copy the HTML below into a Claude Artifact and replace the `null` inside `<script id="dashboard-data">` with the live snapshot JSON from get_team_dashboard, get_team_activity and list_team. Do not load sample numbers unless the manager asks for a demo.
+
+```html
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TerriTool · Manager dashboard</title>
 <style>
@@ -26,3 +31,4 @@ function svgReport(){const rows=data.leaderboard,height=470+rows.length*58;let s
 function csvReport(){const cell=v=>{let s=String(v??'');if(/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};const rows=[['Source',data.is_demo?'SAMPLE DATA':'TerriTool'],['Period',data.period],['Fetched at',data.generated_at||'Unavailable'],[],['Metric','Value','Previous','Change %'],...metrics.map(([k,l])=>[l,data.kpis[k]?.value,data.kpis[k]?.previousValue,data.kpis[k]?.change]),[],['Rank','Rep','Visits','Activity','Companies','Contacts','Routes','Lists','Score','Vs team avg %'],...data.leaderboard.map(r=>[r.rank,r.name,r.visited,r.activity,r.companies,r.contacts,r.routes,r.lists,r.score,r.vs_team_avg])];return rows.map(r=>r.map(cell).join(',')).join('\r\n');}
 $('demo').onclick=()=>load(sample);$('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>5*1024*1024)throw Error('Use a JSON snapshot smaller than 5 MB.');load(JSON.parse(await file.text()));}catch(err){$('status').textContent=err.message;}finally{e.target.value='';}};$('rep').onchange=$('sort').onchange=renderRows;$('svg').onclick=()=>download('territool-manager-dashboard.svg','image/svg+xml',svgReport());$('csv').onclick=()=>download('territool-manager-dashboard.csv','text/csv;charset=utf-8',csvReport());render();try{const initial=JSON.parse($('dashboard-data').textContent);if(initial)load(initial);else if(new URLSearchParams(location.search).get('demo')==='1')load(sample);}catch(e){$('status').textContent=e.message;}
 </script></body></html>
+```

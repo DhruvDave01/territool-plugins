@@ -1,8 +1,8 @@
-# TerriTool Field sales — Project knowledge (Claude)
+# TerriTool field sales — workflow reference
 
-Upload this file into the Field Sales Claude Project (**Context → + → Upload from device**). It is knowledge for one rep’s working day. It is not Manager instructions. Solely claude.ai or Claude Desktop; not Claude Code.
+Reference for one rep’s working day. It is not Manager instructions.
 
-Use the connected TerriTool tools only. Never php/curl. Never salesperson_id. Never list_team.
+Use the connected TerriTool tools only. Do not pass salesperson_id or call list_team.
 
 ## Today’s loop
 

@@ -1,8 +1,8 @@
-# TerriTool Managers — Claude workflows (Project knowledge)
+# TerriTool managers — workflow reference
 
-Upload this file into the **Manager** Claude Project (**Context → + → Upload from device**), together with the dashboard HTML from https://app.territool.com/claude-plugin/downloads/manager-dashboard.html
+Reference for the managers skill. 
 
-Solely claude.ai or Claude Desktop; not Claude Code. Connect `https://app.territool.com/ai/mcp` with the manager’s own TerriTool login. Default dashboard: a Claude Artifact built from the template.
+Connect `https://app.territool.com/ai/mcp` with the manager’s own TerriTool login. Default dashboard: a Claude Artifact built from [the bundled template](dashboard-template.html).
 
 TerriTool is the system of record. Use connected TerriTool tools; do not use shell, raw SQL, or substitute API calls. Discover tool schemas before using them. Never invent successful writes, rep identities, company IDs, route URLs, or dashboard data.
 
@@ -48,4 +48,4 @@ Use saved company IDs; never unsaved pins. One owner per route; pass that `sales
 
 Six KPIs in order: Companies Added, Marked as Visited, Activity Updates, Contacts Added, Routes Created, Lists Created.
 
-Claude: build an HTML Artifact from the Project knowledge dashboard template, filled with the live snapshot (KPIs, leaderboard with rank, name, visited, activity, companies, contacts, routes, lists, score, vs. avg). Do not load sample numbers unless they ask for a demo. Ask to refresh for current figures.
+Claude: build an HTML Artifact from the bundled dashboard template (references/dashboard-template.html), filled with the live snapshot (KPIs, leaderboard with rank, name, visited, activity, companies, contacts, routes, lists, score, vs. avg). Do not load sample numbers unless they ask for a demo. Ask to refresh for current figures.
